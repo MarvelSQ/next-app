@@ -1,0 +1,55 @@
+.container {
+  height: 200vh;
+  background-color: #f5f5f5;
+}
+
+.grid {
+  position: fixed;
+  top: 10vh;
+  left: 10vw;
+  display: grid;
+
+  width: 80vw;
+  height: 80vh;
+
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+
+  gap: 10px;
+
+  grid-template-areas:
+    ". . . ."
+    ". main main ."
+    ". main main ."
+    ". . . .";
+}
+
+.main {
+  position: relative;
+  grid-area: main;
+  border-radius: 6px;
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  overflow: hidden;
+}
+
+.main::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.bg_canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
