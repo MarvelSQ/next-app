@@ -139,23 +139,25 @@ export class Gradient {
   }
 
   setCanvasSize(width, height, initial = true) {
-    (this.width = width),
-      (this.height = height),
+    if (this.width !== width || this.height !== height) {
+      this.width = width;
+      this.height = height;
       this.minigl.setSize(
         Math.min(2560, this.width),
         Math.min(this.height, 1440),
         this.width,
         this.height
-      ),
-      this.minigl.setOrthographicCamera(),
-      initial &&
-        (this.xSegCount = Math.ceil(this.width * this.conf.density[0])),
-      initial &&
-        (this.ySegCount = Math.ceil(this.height * this.conf.density[1])),
-      initial && this.mesh.geometry.setTopology(this.xSegCount, this.ySegCount),
-      this.mesh.geometry.setSize(this.width, this.height),
-      (this.mesh.material.uniforms.u_shadow_power.value =
-        this.width < 600 ? 5 : 6);
+      );
+      this.minigl.setOrthographicCamera();
+      if (initial) {
+        this.xSegCount = Math.ceil(this.width * this.conf.density[0]);
+        this.ySegCount = Math.ceil(this.height * this.conf.density[1]);
+        this.mesh.geometry.setTopology(this.xSegCount, this.ySegCount);
+      }
+      this.mesh.geometry.setSize(this.width, this.height);
+      this.mesh.material.uniforms.u_shadow_power.value =
+        this.width < 600 ? 5 : 6;
+    }
   }
 
   initMaterial() {
